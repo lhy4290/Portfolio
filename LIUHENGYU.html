@@ -8,11 +8,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 載入 FontAwesome 圖示庫 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- 🌟 修正點 1：將 CDN 替換為更穩定的 cdnjs，避免 unpkg 延遲導致白屏 -->
     <!-- 載入 React 核心套件 -->
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js" crossorigin></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js" crossorigin></script>
     <!-- 載入 Babel 以在瀏覽器中編譯 JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+    
     <style>
         body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
     </style>
@@ -1031,197 +1034,6 @@ chart_data = ratios.<span class="py-function">round</span>(<span class="py-numbe
     <\/script>
 </body>
 </html>`
-  },
-  // ✨ 新增：Netflix 數據分析 (Kaggle)
-  { 
-    id: 26, 
-    type: 'analytics', 
-    title: 'Netflix 影音平台數據分析 (Python)', 
-    category: 'Exploratory Data Analysis', 
-    image: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&q=80&w=600', 
-    color: 'bg-zinc-900', 
-    iconColor: 'text-[#E50914]',
-    desc: '運用 Python 進行 Netflix 影視資料集的探索性數據分析（EDA），探討各國產量、類型分佈與上架趨勢，挖掘串流市場的內容策略。',
-    iframeHtml: `<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netflix Data Analysis Preview</title>
-    <script src="https://cdn.tailwindcss.com"><\/script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"><\/script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        body { background-color: #141414; color: #e5e5e5; font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
-        .netflix-red { color: #E50914; }
-        .bg-netflix-red { background-color: #E50914; }
-        .border-netflix-red { border-color: #E50914; }
-        .glass-card { background: rgba(31, 31, 31, 0.7); backdrop-filter: blur(10px); border-radius: 0.75rem; padding: 1.5rem; border: 1px solid #333; }
-        .code-block { background: #000; color: #d4d4d4; padding: 1.5rem; border-radius: 0.75rem; font-family: 'Fira Code', monospace; font-size: 0.875rem; overflow-x: auto; border: 1px solid #333; }
-        .py-keyword { color: #c586c0; } .py-function { color: #dcdcaa; } .py-string { color: #ce9178; } .py-comment { color: #6a9955; font-style: italic; }
-    </style>
-</head>
-<body class="p-4 md:p-8 min-h-screen relative">
-    <!-- 背景裝飾 -->
-    <div class="fixed inset-0 z-[-1] opacity-20 pointer-events-none" style="background-image: radial-gradient(circle at 50% 0%, #E50914 0%, transparent 50%);"></div>
-
-    <div class="max-w-5xl mx-auto">
-        <!-- Header -->
-        <header class="mb-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b border-[#333] pb-6">
-            <div>
-                <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-3 tracking-tight">
-                    <i class="fas fa-play-circle netflix-red mr-2"></i>Netflix Data Analysis
-                </h1>
-                <p class="text-gray-400 text-sm md:text-base">Exploratory Data Analysis (EDA) using Python / Pandas / Seaborn</p>
-            </div>
-            <!-- 精準連結到你提供的 Kaggle 網址 -->
-            <a href="https://www.kaggle.com/code/irisliu4290/netflix-data-analysis" target="_blank" rel="noreferrer" class="bg-[#20BEFF] hover:bg-[#1CA8E5] text-white px-6 py-3 rounded-full font-bold transition-all transform hover:scale-105 shadow-[0_0_15px_rgba(32,190,255,0.3)] flex items-center gap-2 whitespace-nowrap">
-                <i class="fab fa-kaggle text-xl"></i> View on Kaggle
-            </a>
-        </header>
-
-        <!-- 專案摘要 -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div class="glass-card md:col-span-2">
-                <h2 class="text-xl font-bold text-white mb-4 border-l-4 border-netflix-red pl-3">🎬 專案目標與背景</h2>
-                <p class="text-gray-300 leading-relaxed mb-4 text-sm md:text-base">
-                    本專案基於 Netflix 全球影視資料集進行探索性數據分析（EDA）。透過 <strong class="text-white">Python</strong> 進行資料清洗、缺失值處理，並結合資料視覺化技術，探討 Netflix 在不同年份的內容策略轉變（電影 vs. 影集）、各國內容產出佔比，以及受眾分級的分佈狀況，從中挖掘串流巨頭的商業決策軌跡。
-                </p>
-                <div class="flex flex-wrap gap-2 mt-4">
-                    <span class="px-3 py-1 bg-[#333] text-xs rounded-md text-gray-300 border border-[#444]"><i class="fab fa-python text-yellow-400 mr-1"></i>Python</span>
-                    <span class="px-3 py-1 bg-[#333] text-xs rounded-md text-gray-300 border border-[#444]"><i class="fas fa-table text-blue-400 mr-1"></i>Pandas</span>
-                    <span class="px-3 py-1 bg-[#333] text-xs rounded-md text-gray-300 border border-[#444]"><i class="fas fa-chart-area text-green-400 mr-1"></i>Seaborn & Matplotlib</span>
-                </div>
-            </div>
-            
-            <div class="glass-card flex flex-col justify-center items-center text-center">
-                <div class="w-full">
-                    <h3 class="text-sm font-semibold text-gray-400 mb-2">資料集規模</h3>
-                    <p class="text-4xl font-black text-white">8,807</p>
-                    <p class="text-xs text-netflix-red mt-1 font-bold">Movies & TV Shows</p>
-                </div>
-                <div class="w-full border-t border-[#333] mt-4 pt-4">
-                    <h3 class="text-sm font-semibold text-gray-400 mb-2">橫跨國家數</h3>
-                    <p class="text-2xl font-bold text-white">74+</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 核心洞察預覽 (圖表與程式碼) -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
-            <!-- 互動圖表預覽 1：電影與影集比例 -->
-            <div class="glass-card flex flex-col">
-                <h2 class="text-lg font-bold text-white mb-4">📊 洞察一：電影與影集佔比</h2>
-                <div class="flex-grow flex items-center justify-center relative min-h-[250px]">
-                    <canvas id="typeChart" width="250" height="250"></canvas>
-                </div>
-                <p class="text-xs text-gray-400 mt-4 text-center">
-                    <i class="fas fa-lightbulb text-yellow-500 mr-1"></i> 
-                    電影佔據平台近 7 成內容，但近年原創影集（TV Shows）的增長率顯著提升以增加用戶留存。
-                </p>
-            </div>
-
-            <!-- 互動圖表預覽 2：前五大產出國 -->
-            <div class="glass-card flex flex-col">
-                <h2 class="text-lg font-bold text-white mb-4">🌍 洞察二：內容產出 Top 5 國家</h2>
-                <div class="flex-grow flex items-center justify-center relative min-h-[250px] w-full">
-                    <canvas id="countryChart" width="100%" height="250"></canvas>
-                </div>
-                <p class="text-xs text-gray-400 mt-4 text-center">
-                    <i class="fas fa-lightbulb text-yellow-500 mr-1"></i> 
-                    美國仍為最大內容產出國，其次為印度（寶萊塢電影佔大宗）與英國。
-                </p>
-            </div>
-
-            <!-- 程式碼預覽 -->
-            <div class="glass-card flex flex-col lg:col-span-2">
-                <h2 class="text-lg font-bold text-white mb-4">💻 程式碼預覽：資料清洗與特徵萃取</h2>
-                <p class="text-xs text-gray-400 mb-3">使用 Pandas 處理缺失值並轉換時間格式，為後續視覺化打下基礎。</p>
-<pre class="code-block flex-grow"><code><span class="py-comment"># 處理缺失值並轉換 'date_added' 欄位為 datetime 格式</span>
-df[<span class="py-string">'date_added'</span>] = pd.<span class="py-function">to_datetime</span>(df[<span class="py-string">'date_added'</span>].str.strip(), 
-                                <span class="py-keyword">format</span>=<span class="py-string">'%B %d, %Y'</span>)
-
-<span class="py-comment"># 提取上架年份與月份作為新特徵</span>
-df[<span class="py-string">'year_added'</span>] = df[<span class="py-string">'date_added'</span>].dt.year
-df[<span class="py-string">'month_added'</span>] = df[<span class="py-string">'date_added'</span>].dt.month
-
-<span class="py-comment"># 填補 'country' 與 'director' 缺失值</span>
-df[<span class="py-string">'country'</span>] = df[<span class="py-string">'country'</span>].<span class="py-function">fillna</span>(<span class="py-string">'Unknown'</span>)
-df[<span class="py-string">'director'</span>] = df[<span class="py-string">'director'</span>].<span class="py-function">fillna</span>(<span class="py-string">'Not Specified'</span>)
-
-<span class="py-comment"># 檢視清洗後的資料結構</span>
-<span class="py-built_in">print</span>(df.<span class="py-function">info</span>())</code></pre>
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        // 設定暗黑模式圖表字體
-        Chart.defaults.color = '#a3a3a3';
-        Chart.defaults.font.family = "'PingFang TC', sans-serif";
-
-        // Chart 1: 圓餅圖 (電影 vs 影集)
-        const ctxType = document.getElementById('typeChart').getContext('2d');
-        new Chart(ctxType, {
-            type: 'doughnut',
-            data: {
-                labels: ['Movies (電影)', 'TV Shows (影集)'],
-                datasets: [{
-                    data: [6131, 2676], // Netflix 數據比例
-                    backgroundColor: ['#E50914', '#222222'],
-                    borderWidth: 2,
-                    borderColor: '#141414',
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                responsive: false,
-                maintainAspectRatio: false,
-                cutout: '65%',
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: { padding: 20, color: '#e5e5e5' }
-                    }
-                }
-            }
-        });
-
-        // Chart 2: 長條圖 (前五大國家)
-        const ctxCountry = document.getElementById('countryChart').getContext('2d');
-        new Chart(ctxCountry, {
-            type: 'bar',
-            data: {
-                labels: ['United States', 'India', 'United Kingdom', 'Japan', 'South Korea'],
-                datasets: [{
-                    label: 'Titles Count',
-                    data: [2818, 972, 419, 245, 199], 
-                    backgroundColor: '#E50914',
-                    borderRadius: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: '#333' }
-                    },
-                    x: {
-                        grid: { display: false }
-                    }
-                }
-            }
-        });
-    <\/script>
-</body>
-</html>`
   }
 ];
 
@@ -1332,10 +1144,13 @@ function Portfolio() {
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
               Available for Internships
             </div>
-            <h1 class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tighter leading-[1.05] mb-6 md:mb-8">
+            
+            {/* 🌟 修正點 2：將原本的 class 改為 React 規定的 className */}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tighter leading-[1.05] mb-6 md:mb-8">
               Data-Driven <br/>
               <span className="text-zinc-400">Marketer &<br className="hidden md:block lg:hidden" /> Analyst.</span>
             </h1>
+            
             <p className="text-lg md:text-xl text-zinc-600 mb-10 max-w-xl leading-relaxed">
               Combining analytical skills with a global perspective to drive business growth and optimize strategies. Transforming complex data into meaningful stories.
             </p>
@@ -1477,8 +1292,7 @@ function Portfolio() {
                   {[
                     { id: 'all_analytics', label: '全部數據' },
                     { id: 'Routine', label: '日常營運與儀表板', icon: <i className="fas fa-chart-bar text-xs"></i> },
-                    { id: 'Project Analysis', label: '專案成效分析', icon: <i className="fas fa-chalkboard-teacher text-xs"></i> },
-                    { id: 'Exploratory Data Analysis', label: '探索性分析 (EDA)', icon: <i className="fab fa-python text-xs"></i> }
+                    { id: 'Project Analysis', label: '專案成效分析', icon: <i className="fas fa-chalkboard-teacher text-xs"></i> }
                   ].map(tab => (
                     <button
                       key={tab.id}
@@ -1541,20 +1355,20 @@ function Portfolio() {
                   {/* 若有多張圖片，在卡片右上角顯示圖示 */}
                   {item.images && item.images.length > 1 && (
                     <div className="absolute top-4 right-4 z-10 p-1.5 bg-black/60 backdrop-blur-sm rounded text-white shadow-sm">
-                    <i className="fas fa-images text-xs"></i>
-                  </div>
-                )}
-                
-                {/* ✨ 新增：若為互動式儀表板，Hover 時顯示專屬圖示 */}
-                {item.iframeHtml && (
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center backdrop-blur-sm z-20">
-                    <div className="bg-[#DFFF00] text-black px-5 py-2.5 rounded-full font-bold text-sm flex items-center gap-2 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                      <i className={item.category === 'Exploratory Data Analysis' ? 'fab fa-python text-lg' : 'fas fa-chart-bar text-lg'}></i> 
-                      {item.category === 'Exploratory Data Analysis' ? '開啟 Notebook 預覽' : '開啟互動儀表板'}
+                      <i className="fas fa-images text-xs"></i>
                     </div>
-                  </div>
-                )}
-              </div>
+                  )}
+                
+                  {/* ✨ 新增：若為互動式儀表板，Hover 時顯示專屬圖示 */}
+                  {item.iframeHtml && (
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center backdrop-blur-sm z-20">
+                      <div className="bg-[#DFFF00] text-black px-5 py-2.5 rounded-full font-bold text-sm flex items-center gap-2 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                        <i className="fas fa-chart-bar text-lg"></i> 
+                        開啟互動儀表板
+                      </div>
+                    </div>
+                  )}
+                </div>
               
               <div className="p-6 flex-grow flex flex-col">
                   <h3 className="text-lg font-bold mb-3 text-zinc-900 group-hover:text-zinc-600 transition-colors leading-snug">
@@ -1873,6 +1687,6 @@ function Portfolio() {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<Portfolio />);
-</script>
+    </script>
 </body>
 </html>
